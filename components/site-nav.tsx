@@ -1,4 +1,7 @@
 "use client";
+
+import { useState } from "react";
+
 const NAV_LINKS = [
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
@@ -11,10 +14,19 @@ const LINKEDIN_URL =
   "https://www.linkedin.com/in/yash-bhardwaj-1a14952a3/";
 
 export default function SiteNav() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <header className="gh-header">
       <nav className="gh-nav" aria-label="Primary">
-        <a className="gh-brand" href="/" aria-label="Yash Bhardwaj, home">
+        <a
+          className="gh-brand"
+          href="/"
+          aria-label="Yash Bhardwaj, home"
+          onClick={closeMenu}
+        >
           <svg
             width="32"
             height="32"
@@ -44,6 +56,7 @@ export default function SiteNav() {
           <span>Yash Bhardwaj</span>
         </a>
 
+        {/* Desktop navigation */}
         <ul className="gh-links">
           {NAV_LINKS.map((link) => (
             <li key={link.label}>
@@ -60,7 +73,43 @@ export default function SiteNav() {
         >
           Let&apos;s talk
         </a>
+
+        {/* Mobile menu button */}
+        <button
+          className={`gh-menu-toggle ${menuOpen ? "is-open" : ""}`}
+          type="button"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </nav>
+
+      {/* Mobile navigation */}
+      <div className={`gh-mobile-menu ${menuOpen ? "is-open" : ""}`}>
+        <ul>
+          {NAV_LINKS.map((link) => (
+            <li key={link.label}>
+              <a href={link.href} onClick={closeMenu}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <a
+          className="gh-pill gh-mobile-cta"
+          href={LINKEDIN_URL}
+          target="_blank"
+          rel="noreferrer"
+          onClick={closeMenu}
+        >
+          Let&apos;s talk ↗
+        </a>
+      </div>
     </header>
   );
 }
