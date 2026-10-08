@@ -1690,8 +1690,8 @@ body {
   .gh-mobile-menu li a {
     display: block;
     padding: 0.9rem 0.5rem;
+    color:rgb(199, 223, 241);
 
-    color: inherit;
     text-decoration: none;
 
     font-family: var(--font-display);
